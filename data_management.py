@@ -15,7 +15,8 @@ def tampilkan():
     print()
 
 # WHILE: menu berulang sampai pilih keluar
-while True:
+menu_aktif = True
+while menu_aktif:
     print("\n=== MENU DATA ANGKA ===")
     print("1. Isi angka urutan (1 sampai N)")
     print("2. Tambah angka manual")
@@ -32,22 +33,46 @@ while True:
         for i in range(1, n + 1):
             angka.append(i)
         tampilkan()
+    
     elif pilih == "2":
-        angka.append(int(input("Masukkan angka: ")))
+        # WHILE: untuk menginput angka berkali-kali
+        input_lagi = True
+        while input_lagi:
+            angka.append(int(input("Masukkan angka: ")))
+            tanya = input("Tambah angka lagi? (y/n): ")
+            if tanya.lower() != "y":
+                input_lagi = False
         tampilkan()
+    
     elif pilih == "3":
         angka.sort()
         tampilkan()
+    
     elif pilih == "4":
         angka.sort(reverse=True)
         tampilkan()
+    
     elif pilih == "5":
         tampilkan()
+    
     elif pilih == "6":
-        angka.clear()
-        print("Data dihapus.")
+        # WHILE: konfirmasi hapus data
+        konfirmasi = True
+        while konfirmasi:
+            tanya_hapus = input("Yakin ingin menghapus semua data? (y/n): ")
+            if tanya_hapus.lower() == "y":
+                angka.clear()
+                print("Data dihapus.")
+                konfirmasi = False
+            elif tanya_hapus.lower() == "n":
+                print("Pembatalan. Data tidak dihapus.")
+                konfirmasi = False
+            else:
+                print("Input tidak valid. Masukkan 'y' atau 'n'")
+    
     elif pilih == "0":
         print("Selesai. Terima kasih!")
-        break
+        menu_aktif = False
+    
     else:
         print("Pilihan tidak valid.")
